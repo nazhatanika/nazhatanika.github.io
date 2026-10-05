@@ -147,8 +147,8 @@ section h2 {
   border-bottom: var(--bw) solid var(--border);
 }
 section h2::before {
-  content: ""; flex: none; width: 11px; height: 11px; background: var(--accent);
-  box-shadow: 13px 0 0 var(--gold), 0 13px 0 var(--gold), 13px 13px 0 var(--accent);
+  content: ""; flex: none; width: 22px; height: 22px;
+  background: conic-gradient(var(--gold) 0 25%, var(--accent) 0 50%, var(--gold) 0 75%, var(--accent) 0);
 }
 
 /* ---------- experience ---------- */
