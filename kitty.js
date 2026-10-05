@@ -6,9 +6,9 @@
 
   /* ---------------- configuration (paces) ---------------- */
   const PACES = {
-    slow:   { walk: 90,  pause: 2900, hop: 500, label: 'Slow' },
-    normal: { walk: 165, pause: 2000, hop: 340, label: 'Normal' },
-    fast:   { walk: 310, pause: 1200, hop: 240, label: 'Fast' }
+    slow:   { walk: 58,  pause: 3800, hop: 640, label: 'Slow' },
+    normal: { walk: 105, pause: 2800, hop: 470, label: 'Normal' },
+    fast:   { walk: 195, pause: 1750, hop: 330, label: 'Fast' }
   };
   const STORE_KEY = 'kitty-guide-choice';
   const SPR = 32;                  // sprite grid: 32x32 pixels
@@ -237,13 +237,27 @@
     cat.style.top = Math.round(state.y) + 'px';
   }
 
-  function keepInView() {                       // camera follows the cat down the page
+  function visibleBox() {                       // what must stay on screen: the cat, and its bubble if showing
+    let top = state.y, bot = state.y + catH();
+    if (bubble && bubble.style.display !== 'none') {
+      const bh = bubble.offsetHeight;
+      top = Math.min(top, state.y - bh - 12);
+    }
+    return { top, bot };
+  }
+  function follow() {                           // camera follows the cat down the page
     const now = Date.now();
-    if (now - lastScroll < 420) return;
-    const vy = state.y - window.scrollY;
-    const low = window.innerHeight - 190;
-    if (vy > low) { lastScroll = now; window.scrollTo({ top: Math.round(window.scrollY + (vy - low)), behavior: 'smooth' }); }
-    else if (vy < 90) { lastScroll = now; window.scrollTo({ top: Math.max(0, Math.round(window.scrollY + vy - 150)), behavior: 'smooth' }); }
+    const box = visibleBox();
+    const vTop = window.scrollY + 84;
+    const vBot = window.scrollY + window.innerHeight - 84;
+    let delta = 0;
+    if (box.bot > vBot) delta = box.bot - vBot;
+    if (box.top - delta < vTop) delta = box.top - vTop;
+    if (Math.abs(delta) > 6 && now - lastScroll > 240) {
+      lastScroll = now;
+      window.scrollTo({ top: Math.max(0, Math.round(window.scrollY + delta)),
+                        behavior: Math.abs(delta) > 320 ? 'auto' : 'smooth' });
+    }
   }
 
   function loop() {
@@ -265,13 +279,13 @@
         if (f) f();                                    // may queue the next walk
         if (!state.moving && !state.leaving) { running = false; return; }
       } else {
-        keepInView();
+        follow();
       }
     } else if (state.leaving) {
       state.x -= speed * dt * 1.6;
       state.frame += 0.28;
       state.mode = cycle[Math.floor(state.frame) % 4];
-      keepInView();
+      follow();
       if (state.x < -catW() - 40) {
         state.leaving = false; running = false;
         cat.style.display = 'none';
@@ -303,6 +317,7 @@
     bubble.querySelector('.kitty-x').addEventListener('click', () => { stopTour(); walkOff(); });
     bubble.style.display = 'block';
     positionBubble();
+    follow();
   }
 
   function positionBubble() {
@@ -337,6 +352,7 @@
     let tx, ty;
     if (r.left > catW() + 16) { tx = px - catW() - 10; ty = py + 4; }     // stand to the left of the block
     else { tx = px + 4; ty = py + r.height + 2; }                          // no room: stand under it
+    if (bubble) bubble.style.display = 'none';   // bubble travels with the cat, not left behind
     walkTo(tx, ty, () => {
       highlight(el);
       showBubble(STEPS[i].say);
@@ -353,6 +369,7 @@
     sign.innerHTML = '<div class="kitty-sign-board">Hope you enjoy!</div>';
     sign.style.display = 'block';
     positionSign();
+    follow();
     setTimeout(() => {
       if (aborted) return;
       sign.style.display = 'none';
