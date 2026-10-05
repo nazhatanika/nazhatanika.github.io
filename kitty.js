@@ -186,8 +186,8 @@
     { sel: '#experience .job:nth-child(3)',   say: 'She also runs the student team at the IT Help Desk on campus.' },
     { sel: '#experience .job:nth-child(4)',   say: 'And she mentors other students in statistics, machine learning, and data visualization.' },
     { sel: '#skills .skills',                 say: 'Here is everything she works with, from Python and SQL to Windows, macOS, and Linux.' },
-    { sel: '#recognition .card:nth-child(1)', say: 'She was selected for the NITMB summer research program and gave a talk on modeling cell state transitions.' },
-    { sel: '#recognition .card:nth-child(2)', say: 'She was also picked for the RNA Institute bioinformatics program.' },
+    { sel: '#recognition .card:nth-child(1)', say: 'She was selected for the NITMB summer internship and gave a talk on modeling cell state transitions.' },
+    { sel: '#recognition .card:nth-child(2)', say: 'She was also picked for the RNA Institute bioinformatics internship.' },
     { sel: '#recognition .card:nth-child(3)', say: 'Her team won an award in the college AWS generative AI competition.' },
     { sel: '#contact',                        say: 'And that is everything. Thanks for walking around with me!' }
   ];
