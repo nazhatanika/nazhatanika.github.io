@@ -1,44 +1,46 @@
-/* Pixel kitty guide styles */
+/* Pixel kitty guide styles (matches the pixel game theme) */
+
+body { position: relative; }
 
 .kitty {
-  position: fixed;
-  bottom: 10px;
+  position: absolute;
   left: 0;
-  z-index: 60;
+  top: 0;
+  z-index: 5;
   image-rendering: pixelated;
   pointer-events: none;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.14));
+  filter: drop-shadow(3px 3px 0 color-mix(in srgb, var(--shadow) 25%, transparent));
   will-change: left, transform;
 }
 
 .kitty-bubble {
-  position: fixed;
-  z-index: 61;
-  max-width: 320px;
+  position: absolute;
+  z-index: 6;
+  max-width: 330px;
   background: var(--panel);
   color: var(--ink);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  border: 3px solid var(--border);
+  border-radius: 10px;
   padding: 0.7rem 2rem 0.7rem 0.9rem;
-  font-size: 0.92rem;
-  line-height: 1.5;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.13);
+  font-size: 1.02rem;
+  line-height: 1.55;
+  box-shadow: 4px 4px 0 var(--shadow);
 }
 .kitty-bubble.wide { max-width: 420px; }
 .kitty-bubble::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -7px;
+  bottom: -8px;
   width: 12px; height: 12px;
   background: var(--panel);
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border-right: 3px solid var(--border);
+  border-bottom: 3px solid var(--border);
   transform: translateX(-50%) rotate(45deg);
 }
 .kitty-x {
   position: absolute;
-  top: 2px; right: 6px;
+  top: 3px; right: 7px;
   border: 0; background: none; cursor: pointer;
   color: var(--ink-soft); font-size: 1.05rem; line-height: 1;
   padding: 4px;
@@ -46,8 +48,8 @@
 .kitty-x:hover { color: var(--ink); }
 
 .kitty-sign {
-  position: fixed;
-  z-index: 62;
+  position: absolute;
+  z-index: 7;
   text-align: center;
   animation: kitty-pop 0.35s ease;
 }
@@ -57,85 +59,83 @@
   color: #2b2b33;
   border: 3px solid #2b2b33;
   border-radius: 6px;
-  padding: 0.55rem 0.9rem;
-  font-weight: 700;
-  font-size: 1rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+  padding: 0.6rem 0.95rem;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  line-height: 1.7;
+  box-shadow: 4px 4px 0 var(--shadow);
 }
-.kitty-sign-btns { margin-top: 0.5rem; display: flex; gap: 0.5rem; justify-content: center; }
+.kitty-sign-btns { margin-top: 0.6rem; display: flex; gap: 0.5rem; justify-content: center; }
 .kitty-sign-btns button {
-  font: inherit; font-weight: 600; cursor: pointer;
-  padding: 0.45rem 1.1rem; border-radius: 10px;
-  border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+  font: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+  padding: 0.4rem 1.1rem; border-radius: 8px;
+  border: 3px solid var(--border); background: var(--panel); color: var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow);
 }
-.kitty-sign-btns .kitty-yes { background: var(--accent); border-color: var(--accent); color: #fff; }
-.kitty-sign-btns .kitty-no:hover { border-color: var(--accent); }
+.kitty-sign-btns button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--shadow); }
+.kitty-sign-btns button:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--shadow); }
+.kitty-sign-btns .kitty-yes { background: var(--accent); color: #fff; }
 
 .kitty-prompt {
   position: fixed;
   left: 16px; bottom: 16px;
   z-index: 70;
-  width: min(340px, calc(100vw - 32px));
+  width: min(350px, calc(100vw - 32px));
   background: var(--panel);
   color: var(--ink);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 0.95rem 1rem;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+  border: 3px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.05rem;
+  box-shadow: 5px 5px 0 var(--shadow);
   animation: kitty-pop 0.4s ease;
 }
-.kitty-prompt-title { font-weight: 650; margin-bottom: 0.25rem; }
-.kitty-prompt-body { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 0.7rem; }
-.kitty-paces { display: flex; gap: 0.35rem; margin-bottom: 0.75rem; }
-.kitty-paces button {
-  font: inherit; font-size: 0.85rem; cursor: pointer;
-  padding: 0.3rem 0.65rem; border-radius: 8px;
-  border: 1px solid var(--line); background: transparent; color: var(--ink-soft);
+.kitty-prompt-title {
+  font-family: var(--font-display); font-size: 0.6rem; line-height: 1.7;
+  margin-bottom: 0.45rem;
 }
-.kitty-paces button.on { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
+.kitty-prompt-body { color: var(--ink-soft); font-size: 0.98rem; margin-bottom: 0.8rem; }
+.kitty-paces { display: flex; gap: 0.4rem; margin-bottom: 0.8rem; }
+.kitty-paces button {
+  font: inherit; font-size: 0.9rem; cursor: pointer;
+  padding: 0.28rem 0.65rem; border-radius: 7px;
+  border: 2px solid var(--border); background: transparent; color: var(--ink-soft);
+}
+.kitty-paces button.on {
+  background: var(--accent); border-color: var(--border); color: #fff;
+  box-shadow: 2px 2px 0 var(--shadow);
+}
 .kitty-prompt-btns { display: flex; gap: 0.5rem; }
 .kitty-prompt-btns button {
-  font: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer;
-  padding: 0.45rem 0.9rem; border-radius: 10px;
-  border: 1px solid var(--line); background: transparent; color: var(--ink);
+  font: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+  padding: 0.45rem 0.9rem; border-radius: 8px;
+  border: 3px solid var(--border); background: var(--panel); color: var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow);
 }
-.kitty-prompt-btns .kitty-start { background: var(--accent); border-color: var(--accent); color: #fff; }
-.kitty-prompt-btns .kitty-skip:hover { border-color: var(--accent); }
+.kitty-prompt-btns button:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--shadow); }
+.kitty-prompt-btns button:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--shadow); }
+.kitty-prompt-btns .kitty-start { background: var(--accent); color: #fff; }
 
 .kitty-highlight {
-  background: color-mix(in srgb, var(--accent) 11%, transparent);
+  background: color-mix(in srgb, var(--accent) 13%, transparent);
   border-radius: 10px;
-  box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 11%, transparent);
+  box-shadow: 0 0 0 9px color-mix(in srgb, var(--accent) 13%, transparent);
   transition: background 0.25s ease, box-shadow 0.25s ease;
   scroll-margin-top: 96px;
 }
 
-.kitty-confetti {
-  position: fixed;
-  width: 6px; height: 10px;
-  z-index: 65;
-  pointer-events: none;
-  animation: kitty-fall 1.4s ease-in forwards;
-}
-
 .kitty-nav { color: var(--accent) !important; }
 
-@keyframes kitty-fall {
-  from { transform: translateY(0) rotate(0deg); opacity: 1; }
-  to { transform: translateY(70vh) rotate(320deg); opacity: 0; }
-}
 @keyframes kitty-pop {
   from { transform: scale(0.94); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kitty-confetti { animation: none; display: none; }
   .kitty-sign, .kitty-prompt { animation: none; }
   .kitty-highlight { transition: none; }
 }
 
 @media (max-width: 620px) {
   .kitty { bottom: 6px; }
-  .kitty-bubble { max-width: min(300px, calc(100vw - 24px)); font-size: 0.88rem; }
+  .kitty-bubble { max-width: min(300px, calc(100vw - 24px)); font-size: 0.96rem; }
 }
