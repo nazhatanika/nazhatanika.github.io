@@ -118,7 +118,8 @@ section h2 {
 .card h3 a { color: var(--ink); }
 .card h3 a:hover { color: var(--accent); text-decoration: none; }
 .tags { margin: 0 0 0.6rem; font-size: 0.82rem; color: var(--accent); font-weight: 550; }
-.card p:last-child { margin: 0; color: var(--ink-soft); font-size: 0.94rem; }
+.card > p:not(.tags):not(.card-links) { margin: 0 0 0.5rem; color: var(--ink-soft); font-size: 0.94rem; }
+.card > p:not(.tags):not(.card-links):last-child { margin-bottom: 0; }
 .card-links { margin: 0.6rem 0 0; font-size: 0.9rem; font-weight: 550; }
 
 /* skills */
@@ -137,4 +138,15 @@ section h2 {
 @media print {
   .nav, .actions { display: none; }
   body { background: #fff; }
+}
+
+/* hero with photo (photo added on request; layout ready) */
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 216px; gap: 2rem; align-items: start; }
+.hero-photo {
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+  border-radius: 16px; border: 1px solid var(--line); background: var(--panel);
+}
+@media (max-width: 720px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .hero-photo { width: 176px; }
 }
