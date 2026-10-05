@@ -178,19 +178,20 @@
 
   /* ---------------- tour script ---------------- */
   const STEPS = [
-    { sel: '.hero .lede',                     say: 'Hi, I am the pixel kitty. This is Anika: computer science and math at Mount Holyoke, and she likes cats.' },
-    { sel: '#projects .card:nth-child(1)',    say: 'Project one: a model that predicts which customers will come back, plus dashboards for the support team.' },
-    { sel: '#projects .card:nth-child(2)',    say: 'Project two: a pipeline that predicts how robots perform, shipped as a Dockerized API.' },
-    { sel: '#experience .job:nth-child(1)',   say: 'She trained generative models on biological data at NITMB.' },
-    { sel: '#experience .job:nth-child(2)',   say: 'Then at the RNA Institute she built pipelines that turn messy biomedical data into something usable.' },
-    { sel: '#experience .job:nth-child(3)',   say: 'She also runs the student team at the IT Help Desk on campus.' },
-    { sel: '#experience .job:nth-child(4)',   say: 'And she mentors other students in statistics, machine learning, and data visualization.' },
-    { sel: '#skills .skills',                 say: 'Here is everything she works with, from Python and SQL to Windows, macOS, and Linux.' },
-    { sel: '#recognition .card:nth-child(1)', say: 'She was selected for the NITMB summer internship and gave a talk on modeling cell state transitions.' },
-    { sel: '#recognition .card:nth-child(2)', say: 'She was also picked for the RNA Institute bioinformatics internship.' },
-    { sel: '#recognition .card:nth-child(3)', say: 'Her team won an award in the college AWS generative AI competition.' },
-    { sel: '#contact',                        say: 'And that is everything. Thanks for walking around with me!' }
+    { sel: '.hero .lede',              say: 'Hi, I am the pixel kitty. This is Anika: computer science and math at Mount Holyoke, and she likes cats.' },
+    { sel: '#projects .card',   idx: 0, say: 'Project one: a model that predicts which customers will come back, plus dashboards for the support team.' },
+    { sel: '#projects .card',   idx: 1, say: 'Project two: a pipeline that predicts how robots perform, shipped as a Dockerized API.' },
+    { sel: '#experience .job',  idx: 0, say: 'She trained generative models on biological data at NITMB.' },
+    { sel: '#experience .job',  idx: 1, say: 'Then at the RNA Institute she built pipelines that turn messy biomedical data into something usable.' },
+    { sel: '#experience .job',  idx: 2, say: 'She also runs the student team at the IT Help Desk on campus.' },
+    { sel: '#experience .job',  idx: 3, say: 'And she mentors other students across computer science, mathematics, and statistics.' },
+    { sel: '#skills .skills',          say: 'Here is everything she works with, from Python and SQL to Windows, macOS, and Linux.' },
+    { sel: '#recognition .card', idx: 0, say: 'Her team won an award in the college AWS generative AI case competition.' },
+    { sel: '#recognition .card', idx: 1, say: 'She was selected for the NITMB summer internship and gave a talk on modeling cell state transitions.' },
+    { sel: '#recognition .card', idx: 2, say: 'She was also picked for the RNA Institute bioinformatics internship.' },
+    { sel: '#contact',                 say: 'And that is everything. Thanks for walking around with me!' }
   ];
+
 
   /* ---------------- engine ---------------- */
   let pace = 'normal';
@@ -328,7 +329,8 @@
   function tourStep(i) {
     if (aborted) return;
     if (i >= STEPS.length) { showSign(); return; }
-    const el = document.querySelector(STEPS[i].sel);
+    const step = STEPS[i];
+    const el = step.idx != null ? (document.querySelectorAll(step.sel)[step.idx] || null) : document.querySelector(step.sel);
     if (!el) { tourStep(i + 1); return; }
     const r = el.getBoundingClientRect();
     const px = r.left + window.scrollX, py = r.top + window.scrollY;
@@ -404,7 +406,8 @@
     stopTour();
     aborted = false;
     const i = fromStep || 0;
-    const el = document.querySelector(STEPS[Math.min(i, STEPS.length - 1)].sel);
+    const s0 = STEPS[Math.min(i, STEPS.length - 1)];
+    const el = s0.idx != null ? (document.querySelectorAll(s0.sel)[s0.idx] || null) : document.querySelector(s0.sel);
     const r = el ? el.getBoundingClientRect() : { top: 0, left: 0 };
     state.y = r.top + window.scrollY;
     state.x = -catW() - 30;
