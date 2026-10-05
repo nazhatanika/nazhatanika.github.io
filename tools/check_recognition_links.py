@@ -49,7 +49,6 @@ if changed:
             tok = line.split("=", 1)[1]
     env["GITHUB_TOKEN"] = tok
     subprocess.run(["git", "-C", str(ROOT), "push", "-q", "origin", "main"], check=True, env=env)
-    print("SWAPPED to archive and pushed")
+    print("SWAPPED to archive and pushed:\n" + "\n".join(notes))
 else:
-    print("all live links still valid")
-print("\n".join(notes))
+    pass  # silent when everything is live (cron watchdog pattern)
