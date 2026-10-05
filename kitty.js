@@ -402,7 +402,7 @@
     prompt.className = 'kitty-prompt';
     prompt.innerHTML =
       '<div class="kitty-prompt-title">A pixel kitty wants to show you around</div>' +
-      '<div class="kitty-prompt-body">It walks the page, sits by each part, and waves goodbye at the end.</div>' +
+      '<div class="kitty-prompt-body">It walks the page and sits by each part to show you around.</div>' +
       '<div class="kitty-paces" role="radiogroup" aria-label="Walking pace">' +
       '<button data-pace="slow">Slow</button><button data-pace="normal" class="on">Normal</button><button data-pace="fast">Fast</button></div>' +
       '<div class="kitty-prompt-btns"><button class="kitty-start">Yes, take the tour</button><button class="kitty-skip">No thanks</button></div>';
