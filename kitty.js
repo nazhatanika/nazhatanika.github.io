@@ -258,11 +258,14 @@
       state.frame += step / (SPR * SCALE / 9);
       state.mode = cycle[Math.floor(state.frame) % 4];
       if (state.x === state.tx && state.y === state.ty) {
-        state.moving = false; state.mode = 'idle'; render();
-        const f = state.onArrive; state.onArrive = null; if (f) f();
-        return;
+        state.moving = false; state.mode = 'idle';
+        const f = state.onArrive; state.onArrive = null;
+        render();
+        if (f) f();                                    // may queue the next walk
+        if (!state.moving && !state.leaving) { running = false; return; }
+      } else {
+        keepInView();
       }
-      keepInView();
     } else if (state.leaving) {
       state.x -= speed * dt * 1.6;
       state.frame += 0.28;

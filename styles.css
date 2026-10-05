@@ -19,9 +19,22 @@
   --font-body: "Pixelify Sans", "Courier New", monospace;
 }
 
+/* dark palette: explicit choice, or the system preference when nothing is chosen */
+:root[data-theme="dark"] {
+  --bg: #14121c;
+    --panel: #1e1a2a;
+    --ink: #f2eeff;
+    --ink-soft: #b0a6c8;
+    --line: #4a4160;
+    --border: #0a0810;
+    --shadow: #06040c;
+    --accent: #a99bff;
+    --accent-soft: #2a2440;
+    --gold: #ffd35c;
+}
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #14121c;
+  :root:not([data-theme="light"]) {
+  --bg: #14121c;
     --panel: #1e1a2a;
     --ink: #f2eeff;
     --ink-soft: #b0a6c8;
@@ -68,6 +81,15 @@ a:hover { text-decoration: underline; }
   text-shadow: 2px 2px 0 var(--accent-soft);
 }
 .nav-name:hover { text-decoration: none; }
+.nav-right { display: flex; align-items: center; gap: 0.6rem; }
+.theme-btn {
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer;
+  padding: 0.25rem 0.6rem; border-radius: 7px;
+  border: 2px solid var(--border); background: var(--panel); color: var(--ink);
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+.theme-btn:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--shadow); }
+.theme-btn:active { transform: translate(1px, 1px); box-shadow: 0 0 0 var(--shadow); }
 .nav-links { display: flex; gap: 0.5rem; font-size: 0.95rem; }
 .nav-links a {
   color: var(--ink-soft); padding: 0.28rem 0.55rem; border-radius: 6px;
