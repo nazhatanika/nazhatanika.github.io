@@ -130,6 +130,7 @@ h1 {
   box-shadow: 4px 4px 0 var(--shadow);
   transition: transform 0.08s ease, box-shadow 0.08s ease;
 }
+.btn .ico { width: 1.05em; height: 1.05em; vertical-align: -0.16em; margin-right: 0.45em; }
 .btn:hover {
   text-decoration: none; transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--shadow);
@@ -220,7 +221,7 @@ section h2::before {
 /* hero photo slot (waiting on the LinkedIn photo) */
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 2rem; align-items: start; }
 .hero-photo {
-  width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+  width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 18%;
   border: var(--bw) solid var(--border); border-radius: 10px;
   background: var(--panel); box-shadow: 5px 5px 0 var(--shadow);
 }
